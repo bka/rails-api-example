@@ -1,28 +1,10 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Sample implementation on how to perform basic api key authentication with dedicated authentication endpoint to generate sessions. Session key is set into http header when sending a valid api key. This session key can be used in following requests to authenticate e.g.:
 
-Things you may want to cover:
+    res = RestClient.get 'http://localhost:3000/auth.json', {:api_key => 'IOS-3kHudwmH'}
+    api_session_key = res.headers[:api_session_key]
 
-* Ruby version
+    res = RestClient.get 'http://localhost:3000/projects.json', {:api_session_key => api_session_key}
+    assert_equal 200, res.code
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
